@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <title>Company Homepage</title>
+    <style>
+        /* General Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #333333;
+            color: #fff;
+            height: 80px;
+            /* Increase header height */
+            position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            /* Align text and image vertically */
+        }
+
+        .logo img {
+            height: 50px;
+            /* Adjust height as needed */
+            width: auto;
+            /* Keep aspect ratio */
+            margin-right: -14px;
+            /* Space between image and text */
+        }
+
+        .logo span {
+            font-size: 1.5rem;
+            /* Adjust the size of the company text */
+            font-weight: bold;
+            /* Make the text bold */
+            color: #fff;
+            /* White color for the text */
+        }
+
+        nav {
+            flex-grow: 1;
+            text-align: center;
+            /* Center navigation links */
+            font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        nav ul {
+            list-style: none;
+            display: inline-flex;
+            /* Inline flex to center the nav items */
+            gap: 20px;
+            align-items: center;
+
+        }
+
+        nav ul li {
+            display: inline-block;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 10px 15px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Hover effect for navigation links */
+        nav ul li a:hover {
+            background-color: #333333;
+            /* Darker background on hover */
+            color: #52cfc2;
+            /* Change text color on hover */
+            border-radius: 5px;
+        }
+
+        /* Let's Talk Button */
+        .lets-talk {
+            padding: 10px 20px;
+            background-color: #333333;
+            color: #52cfc2;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Hover effect for Let's Talk button */
+        .lets-talk:hover {
+            background-color: #52cfc2;
+            /* Change background to white */
+            color: #333333;
+            /* Change text color to match original background */
+            border: 1px solid #333333;
+            /* Add border on hover */
+        }
+
+        /* Responsive: Hide menu and create toggle button */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 5px 0;
+        }
+
+        /* Mobile View */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                background-color: #333333;
+                position: absolute;
+                top: 80px;
+                right: 0;
+                width: 100%;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease-in-out;
+                text-align: center;
+            }
+
+            nav ul.open {
+                max-height: 350px;
+                /* Expandable height when open */
+            }
+
+            /* Move Let's Talk button into the toggle */
+            nav ul li,
+            .lets-talk {
+                margin-top: 10px;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            /* Remove extra space for Let's Talk button when in mobile */
+            .lets-talk {
+                margin-top: 0;
+                padding: 10px 30px;
+                width: 100%;
+                /* Make button take full width inside toggle */
+            }
+        }
+
+
+        /* Banner Section */
+        .banner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #3db7a5;
+            /* Darker shade of #52cfc2 */
+            color: #fff;
+            height: 610px;
+            /* Increased header height */
+            position: relative;
+            background-image: url('banner.png');
+            /* Path to the image */
+            background-size: cover;
+            /* Ensures the image covers the whole header */
+            background-position: center;
+            /* Centers the image */
+            background-repeat: no-repeat;
+            /* Prevents the image from repeating */
+            background-blend-mode: overlay;
+            /* Blends the color and image */
+            opacity: 1;
+            flex-wrap: wrap;
+        }
+
+        .pattern-bg {
+            position: absolute;
+            width: 100%;
+            height: 748px;
+            top: 0px;
+            background-color: #25cfc2;
+            left: 0;
+            mix-blend-mode: multiply;
+        }
+
+        .vector {
+            position: absolute;
+            width: 1214px;
+            height: 515px;
+            top: 66px;
+            left: 31px;
+            mix-blend-mode: color-burn;
+            background-blend-mode: color-burn;
+        }
+
+        /* Banner Content */
+        .banner-content {
+            max-width: 50%;
+            /* Limit width of text section */
+            text-align: left;
+            /* Align text to the left */
+            padding-right: 20px;
+            font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        .banner-content h1 {
+            font-size: 48px;
+            /* Larger font size for the title */
+            margin-bottom: 20px;
+
+        }
+
+        .banner-content p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            /* Added space between text and button */
+        }
+
+        .banner-content button {
+            padding: 15px 25px;
+            background-color: #fff;
+            color: #333333;
+            border: none;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .banner-content button:hover {
+            background-color: #52cfc2;
+            /* Darker red on hover */
+        }
+
+        /* Banner Images Section */
+        .banner-images {
+            display: flex;
+            gap: 40px;
+            /* Space between images */
+            align-items: center;
+            margin-bottom: auto;
+            flex-wrap: wrap;
+            /* Allow wrapping on smaller screens */
+            justify-content: center;
+            position: relative;
+            /* Required for absolute positioning of background images */
+        }
+
+        .banner-images img {
+            /* Rounded corners for the images */
+            border-radius: 8px;
+        }
+
+        /* Pattern and Vector backgrounds behind content */
+        .pattern-bg,
+        .vector {
+            position: absolute;
+            /* Absolute positioning for backgrounds */
+            z-index: -1;
+            /* Send them behind other content */
+            opacity: 0.5;
+            /* Blend them with the background */
+            mix-blend-mode: multiply;
+            /* Optional: Blend mode for better blending */
+            pointer-events: none;
+            /* Prevent interaction */
+        }
+
+        .pattern-bg {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+        }
+
+        .vector {
+            bottom: 0;
+            right: 0;
+            width: 50%;
+            height: auto;
+        }
+
+        /* Specific styles for #image122 and #image123 */
+        #image122 {
+            width: 250px;
+            /* Increased width */
+            height: 350px;
+            /* Increased height */
+            object-fit: cover;
+            margin-top: 180px;
+        }
+
+        #image123 {
+            width: 250px;
+            /* Increased width */
+            height: 350px;
+            /* Increased height */
+            object-fit: cover;
+        }
+
+        /* Responsive Mobile View */
+        @media (max-width: 768px) {
+            .banner {
+                flex-direction: column;
+                height: auto;
+                text-align: center;
+            }
+
+            .banner-content {
+                max-width: 100%;
+                margin-bottom: -164px;
+                /* Adjust spacing for mobile */
+            }
+
+            .banner-images {
+                flex-direction: column;
+                /* Stack images vertically on small screens */
+                justify-content: center;
+                gap: 20px;
+                /* Space between the images */
+                margin-top: -206px;
+            }
+
+            .banner-images img {
+                width: 200px;
+                /* Adjust width for mobile */
+                height: 250px;
+                /* Adjust height for mobile */
+            }
+
+            .banner-content h1 {
+                font-size: 36px;
+                /* Adjust font size for smaller screens */
+            }
+
+            .banner-content p {
+                font-size: 16px;
+            }
+
+            .banner-content button {
+                padding: 12px 20px;
+                /* Adjust button padding for mobile */
+                font-size: 14px;
+                /* Smaller button text for mobile */
+            }
+
+            /* Adjust background images for mobile */
+            .pattern-bg {
+                width: 100%;
+                height: 200px;
+                top: -50px;
+            }
+
+            .vector {
+                width: 70%;
+                height: 150px;
+                bottom: 0;
+            }
+        }
+
+
+        /* Card Section */
+        .card-section {
+            display: flex;
+            justify-content: space-around;
+            padding: 40px;
+            background-color: #2D3333;
+            /* Dark background color for the section */
+        }
+
+        /* Individual Cards */
+        .card {
+            border: 5px solid #52cfc2;
+            /* Thicker border with a distinct color */
+            padding: 20px;
+            text-align: center;
+            width: 30%;
+            /* Set card width */
+            border-radius: 15px;
+            /* Rounded corners */
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+            background-color: #333333;
+            font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            /* Dark background for the cards (fixed typo) */
+        }
+
+        .card h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #52cfc2;
+            font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            /* Set heading text color */
+        }
+
+        .card p {
+            font-size: 16px;
+            color: white;
+            /* White text color */
+        }
+
+        /* Icon Styling */
+        .card i {
+            font-size: 48px;
+            /* Increased icon size */
+            color: #F8FBFB;
+            /* Icon color to match theme */
+            margin-bottom: 20px;
+            
+        }
+
+        /* Icon Sizes for Each Card */
+        .card-1 i {
+            font-size: 60px;
+            /* Custom size for card 1 icon */
+        }
+
+        .card-2 i {
+            font-size: 55px;
+            /* Custom size for card 2 icon */
+        }
+
+        .card-3 i {
+            font-size: 50px;
+            /* Custom size for card 3 icon */
+        }
+
+        /* Hover Effects */
+        .card:hover {
+            box-shadow: 0 4px 20px rgba(82, 207, 194, 0.5);
+            /* Glow effect */
+            transform: translateY(-5px);
+            /* Slight lift effect */
+        }
+
+        /* Responsive for smaller screens */
+        @media (max-width: 768px) {
+            .card-section {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .card {
+                width: 80%;
+                /* Cards take up more space on smaller screens */
+                margin-bottom: 20px;
+                /* Add spacing between stacked cards */
+            }
+        }
+
+        /* Why Choose Us Section */
+        .why-choose-us {
+            padding: 40px;
+            text-align: center;
+            background-color: #F8FBFB;
+            margin-top: 103px;
+            /* Light background color */
+        }
+
+        .why-choose-us h2 {
+            margin-bottom: 109px;
+            font-size: 32px;
+            color: #333;
+        }
+
+        .work-cards {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+            /* Space between cards */
+            flex-wrap: wrap;
+            /* Allow wrapping on smaller screens */
+        }
+
+        .work-card {
+            padding: 20px;
+            /* Thicker border with vibrant color */
+            width: 23%;
+            height: 346px;
+            /* Increased height of the card */
+            text-align: center;
+            border-radius: 15px;
+            background-color: #fff;
+            /* White background for the card */
+            transition: transform 0.3s, box-shadow 0.3s ease-in-out;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* Light shadow */
+        }
+
+        /* Adding spacing between the logo and the heading */
+        .work-card .card-logo {
+            width: 50px;
+            /* Logo size */
+            height: auto;
+            margin-bottom: 15px;
+            /* Gap between logo and heading */
+        }
+
+        /* Increased space between heading and paragraph */
+        .work-card h3 {
+            margin-bottom: 20px;
+            /* Increased gap between heading and paragraph */
+        }
+
+        /* Justify the paragraph text and increase line gap */
+        .work-card p {
+            text-align: justify;
+            /* Justify the paragraph text */
+            line-height: 1.8;
+            /* Increase line gap between lines of text */
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        /* Hover effects for cards */
+        .work-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            /* Slight lift and 3D effect */
+            box-shadow: 0 10px 30px rgba(181, 182, 182, 0.725);
+            /* Glowing shadow */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .work-cards {
+                flex-direction: column;
+                /* Stack cards vertically on mobile */
+                align-items: center;
+            }
+
+            .work-card {
+                width: 80%;
+                /* Cards take up more space on small screens */
+                margin-bottom: 20px;
+                /* Add space between stacked cards */
+            }
+
+            .work-card h3 {
+                font-size: 24px;
+                /* Slightly smaller heading on mobile */
+            }
+
+            .work-card p {
+                font-size: 14px;
+                /* Adjust paragraph font size */
+            }
+        }
+
+
+
+        /* Team Section */
+        .team-section {
+    padding: 60px 40px;
+    text-align: center;
+    position: relative;
+    background-color: #E8EAEB;
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden; /* To prevent background image overflow */
+}
+
+.team-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 15px;
+    width: 495px;
+    height: 551px;
+    background-image: url(bhf.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: top right;
+    opacity: 0.3;
+    z-index: 1;
+}
+.team-section h2 {
+    margin-bottom: 20px;
+    font-size: 32px;
+    color: #333333;
+    text-align: center;
+}
+
+/* Team Slider */
+.team-slider {
+    display: flex;
+    
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    gap: 20px;
+    padding-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+}
+
+.team-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    scroll-snap-align: start;
+    width: 290px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 14px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.team-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+    
+    margin-bottom: 15px;
+}
+
+.team-info h3 {
+    font-size: 18px;
+    color: #333333;
+    margin-bottom: 10px;
+}
+
+.team-info .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.social-links a {
+    font-size: 18px;
+    color: #52cfc2;
+    transition: color 0.3s ease;
+    text-decoration: none;
+}
+
+.social-links a:hover {
+    color: #333333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .team-card {
+        width: 150px;
+    }
+
+    .team-card img {
+        height: 200px;
+    }
+
+    .team-section h2 {
+        font-size: 28px;
+    }
+}
+
+        /* Footer Styles */
+        .footer {
+            background-color: #2D3333;
+            padding: 40px 20px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo {
+            flex: 1;
+            max-width: 300px;
+            text-align: left;
+        }
+
+        .footer-logo img {
+            max-width: 150px;
+            margin-bottom: 20px;
+        }
+
+        .footer-description {
+            font-size: 14px;
+            color: #ddd;
+        }
+
+        .footer-links {
+            flex: 1;
+            max-width: 300px;
+            text-align: left;
+        }
+
+        .footer-links h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .footer-links ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links ul li a {
+            text-decoration: none;
+            color: #ddd;
+            font-size: 14px;
+        }
+
+        .footer-links ul li a:hover {
+            color: #52cfc2;
+        }
+
+        .footer-contact {
+            flex: 1;
+            max-width: 300px;
+            text-align: left;
+        }
+
+        .footer-contact h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .footer-contact p {
+            font-size: 14px;
+            color: #ddd;
+            margin-bottom: 10px;
+        }
+
+        .footer-contact i {
+            margin-right: 8px;
+            color: #52cfc2;
+        }
+
+        .footer-social .social-icon {
+            margin: 0 10px;
+            display: inline-block;
+            font-size: 24px;
+            color: #fff;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .footer-social .social-icon:hover {
+            transform: scale(1.1);
+            color: #52cfc2;
+        }
+
+        .footer-bottom {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #ddd;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <!-- Logo on the left corner -->
+        <!-- Logo on the left corner with image and text -->
+        <div class="logo">
+            <img src="logo1.png" alt="Company Logo"> <!-- Replace with the path to your logo -->
+            <span>NuVersion Technologies</span>
+        </div>
+
+        <!-- Centered Navigation -->
+        <nav>
+            <ul id="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <!--<li><a href="carre.html">Careers</a></li>-->
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contactus.html">Contact Us</a></li>
+                <li><button class="lets-talk">Let's Talk</button></li> <!-- Moved inside nav for mobile view -->
+            </ul>
+        </nav>
+
+        <!-- Hamburger Menu for Mobile View -->
+        <div class="menu-toggle" id="menu-toggle">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </header>
+
+
+    <!-- Banner Section -->
+    <section class="banner">
+        <div class="banner-content">
+            <h1>Welcome to Our Website</h1>
+            <p>We're glad to have you here! Explore our services and know more about us.</p>
+            <button>Learn More</button>
+        </div>
+        <div class="banner-images">
+
+            <img id="image122" src="img/unsplash-zpve5j7bm6m-2.png" alt="Banner Image 1">
+            <img id="image123" src="img/unsplash-zpve5j7bm6m.png" alt="Banner Image 2">
+            <img class="pattern-bg" src="img/pattern-bg.png" />
+            <img class="vector" src="img/vector.png" />
+        </div>
+    </section>
+
+
+
+    <!-- Why Choose Us Section -->
+    <section class="card-section">
+        <div class="card">
+            <i class="fas fa-cloud"></i> <!-- Salesforce Cloud Icon -->
+            <h3>Salesforce Consulting</h3>
+            <p>Expert guidance to optimize Salesforce for your business.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-tools"></i> <!-- Customization Icon -->
+            <h3>Salesforce Customization</h3>
+            <p>Tailored solutions to fit your business needs.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-chart-line"></i> <!-- Integration Icon -->
+            <h3>Salesforce Integration</h3>
+            <p>Seamless integration with your current systems.</p>
+        </div>
+    </section>
+
+
+
+    <!-- Why Choose Us Section (Salesforce Services) -->
+    <section class="why-choose-us">
+        <h2>Why Choose Us for Salesforce Services?</h2>
+        <div class="work-cards">
+            <div class="work-card">
+                <img src="1.png" alt="Logo 1" class="card-logo">
+                <h3>Expert Salesforce Consultants</h3>
+                <p>Our team of certified Salesforce consultants will ensure your Salesforce solutions are tailored to
+                    your business needs, maximizing efficiency and ROI.</p>
+            </div>
+
+            <div class="work-card">
+                <img src="https://via.placeholder.com/50" alt="Logo 2" class="card-logo">
+                <h3>Custom Salesforce Solutions</h3>
+                <p>We specialize in customizing Salesforce to fit your unique workflows, processes, and business goals,
+                    ensuring seamless integration with your systems.</p>
+            </div>
+
+            <div class="work-card">
+                <img src="https://via.placeholder.com/50" alt="Logo 3" class="card-logo">
+                <h3>Ongoing Support & Training</h3>
+                <p>We provide continuous support and training to ensure your team gets the most out of Salesforce,
+                    keeping your systems running smoothly and your users empowered.</p>
+            </div>
+        </div>
+    </section>
+    <!-- Team Section -->
+    <section class="team-section">
+        <h2>Discover Our Team</h2>
+        <div class="team-slider">
+            <div class="team-card">
+                <img src="profile.jpeg" alt="Team Member 1">
+                <div class="team-info">
+                    <h3>John Doe</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="team-card">
+                <img src="profile.jpeg" alt="Team Member 2">
+                <div class="team-info">
+                    <h3>Jane Smith</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <!-- Repeat for other team members -->
+        </div>
+    </section>
+    
+
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="img/image-13.png" alt="Logo">
+                <p>NuVersion Technologies</p>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3>Contact</h3>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                <p><i class="fas fa-envelope"></i> info@company.com</p>
+            </div>
+        </div>
+        <div class="footer-social">
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Your Company Name. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // JS code for team slider auto scroll
+        const slider = document.querySelector('.team-slider');
+        let isScrolling = true;
+
+        function autoScrollSlider() {
+            if (isScrolling) {
+                slider.scrollBy({
+                    left: 150, /* Scrolls by 150px to the right */
+                    behavior: 'smooth' /* Smooth scrolling */
+                });
+
+                // If the end of the slider is reached, reset it back to the start
+                if (slider.scrollLeft >= slider.scrollWidth - slider.clientWidth) {
+                    slider.scrollTo(0, 0); /* Reset scroll position */
+                }
+            }
+        }
+
+        // Auto scroll every 2 seconds
+        setInterval(autoScrollSlider, 2000);
+
+    </script>
+    <script>
+        // Toggle Menu for Mobile View
+        const menuToggle = document.getElementById('menu-toggle');
+        const navList = document.getElementById('nav-list');
+
+        menuToggle.addEventListener('click', () => {
+            navList.classList.toggle('open');
+        });
+    </script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

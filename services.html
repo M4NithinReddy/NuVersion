@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salesforce Services</title>
+    <!-- Font Awesome CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <style>
+          * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #333333;
+            color: #fff;
+            height: 80px; /* Increase header height */
+            position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+    
+.logo img {
+    height: 50px; /* Adjust height as needed */
+    width: auto; /* Keep aspect ratio */
+    margin-right: -14px; /* Space between image and text */
+}
+
+.logo span {
+    font-size: 1.5rem; /* Adjust the size of the company text */
+    font-weight: bold; /* Make the text bold */
+    color: #fff; /* White color for the text */
+}
+
+        nav {
+            flex-grow: 1;
+            text-align: center; /* Center navigation links */
+        }
+
+        nav ul {
+            list-style: none;
+            display: inline-flex; /* Inline flex to center the nav items */
+            gap: 20px;
+            align-items: center;
+        }
+
+        nav ul li {
+            display: inline-block;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 10px 15px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Hover effect for navigation links */
+        nav ul li a:hover {
+            background-color: #333333; /* Darker background on hover */
+            color: #52cfc2; /* Change text color on hover */
+            border-radius: 5px;
+        }
+
+        /* Let's Talk Button */
+        .lets-talk {
+            padding: 10px 20px;
+            background-color: #333333;
+            color: #52cfc2;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Hover effect for Let's Talk button */
+        .lets-talk:hover {
+            background-color: #52cfc2;  /* Change background to white */
+            color: #333333;  /* Change text color to match original background */
+            border: 1px solid #333333;  /* Add border on hover */
+        }
+
+        /* Responsive: Hide menu and create toggle button */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 5px 0;
+        }
+
+        /* Mobile View */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                background-color: #333333;
+                position: absolute;
+                top: 80px;
+                right: 0;
+                width: 100%;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease-in-out;
+                text-align: center;
+            }
+
+            nav ul.open {
+                max-height: 350px; /* Expandable height when open */
+            }
+
+            /* Move Let's Talk button into the toggle */
+            nav ul li,
+            .lets-talk {
+                margin-top: 10px;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            /* Remove extra space for Let's Talk button when in mobile */
+            .lets-talk {
+                margin-top: 0;
+                padding: 10px 30px;
+                width: 100%; /* Make button take full width inside toggle */
+            }
+        }
+
+        /* Geometric Banner */
+.banner {
+    background: url('banner.png') no-repeat center center/cover; /* Background image */
+    background-color: #52cfc2; /* Theme color */
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    position: relative;
+}
+
+.banner h1 {
+    font-size: 48px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.banner:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4); /* Semi-transparent overlay for better text visibility */
+    z-index: 0; /* Overlay should be behind the content */
+}
+
+.banner-content {
+    position: relative;
+    z-index: 1; /* Ensure content is above the overlay */
+}
+
+        /* Services Section */
+        .services {
+            padding: 50px 20px;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+        .services h2 {
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+
+        .serv1, .serv2, .serv3, .serv4 {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            width: 100%;
+            gap: 400px;
+            margin-top: 50px;
+            transition: opacity 0.8s ease-out, transform 0.3s ease;
+            opacity: 0;
+        }
+
+        .text-container {
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .serv1 h1, .serv2 h1, .serv3 h1, .serv4 h1 {
+            font-size: 28px;
+            color: #0044cc;
+        }
+
+        .serv1 p, .serv2 p, .serv3 p, .serv4 p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .serv1 img, .serv2 img, .serv3 img, .serv4 img {
+            max-width: 200px;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .serv1.active, .serv2.active, .serv3.active, .serv4.active {
+            opacity: 1;
+        }
+
+        .serv1:hover img, .serv2:hover img, .serv3:hover img, .serv4:hover img {
+            transform: scale(1.2);
+        }
+
+        .serv1:hover, .serv2:hover, .serv3:hover, .serv4:hover {
+            transform: scale(1.05);
+        }
+
+        /* Banner2 */
+        .banner2 {
+            background: url('im1.png') no-repeat center center/cover;
+            height: 200px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            background-color: #52cfc2;
+            position: relative;
+        }
+
+        .banner2::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: inherit;
+            filter: blur(5px);
+            z-index: -1;
+        }
+
+        .banner2 .btn {
+            background-color: #52cfc2;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .banner2 .btn:hover {
+            background-color: white;
+            color: #52cfc2;
+            transform: scale(1.1);
+        }
+
+        /* Footer Styles */
+        /* Footer Styles */
+        .footer {
+            background-color: #2c3e50;
+            padding: 40px 20px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo {
+            flex: 1;
+            max-width: 300px;
+            text-align: left;
+        }
+
+        .footer-logo img {
+            max-width: 150px;
+            margin-bottom: 20px;
+        }
+
+        .footer-description {
+            font-size: 14px;
+            color: #ddd;
+        }
+
+        .footer-links {
+            flex: 1;
+            max-width: 300px;
+            text-align: left;
+        }
+
+        .footer-links h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .footer-links ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links ul li a {
+            text-decoration: none;
+            color: #ddd;
+            font-size: 14px;
+        }
+
+        .footer-links ul li a:hover {
+            color: #52cfc2;
+        }
+
+        .footer-contact {
+            flex: 1;
+            max-width: 300px;
+            text-align: left;
+        }
+
+        .footer-contact h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .footer-contact p {
+            font-size: 14px;
+            color: #ddd;
+            margin-bottom: 10px;
+        }
+
+        .footer-contact i {
+            margin-right: 8px;
+            color: #52cfc2;
+        }
+
+        .footer-social .social-icon {
+            margin: 0 10px;
+            display: inline-block;
+            font-size: 24px;
+            color: #fff;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .footer-social .social-icon:hover {
+            transform: scale(1.1);
+            color: #52cfc2;
+        }
+
+        .footer-bottom {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #ddd;
+        }
+        /*
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav ul {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+            }
+
+            nav ul li {
+                margin: 10px 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .active-menu {
+                display: flex;
+            }
+
+            .serv1, .serv2, .serv3, .serv4 {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-logo, .footer-links, .footer-contact {
+                max-width: 100%;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <!-- Logo on the left corner -->
+            <!-- Logo on the left corner with image and text -->
+            <div class="logo">
+                <img src="logo1.png" alt="Company Logo"> <!-- Replace with the path to your logo -->
+                <span>NuVersion Technologies</span>
+            </div>
+
+        <!-- Centered Navigation -->
+        <nav>
+            <ul id="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+               <!-- <li><a href="carre.html">Careers</a></li>-->
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contactus.html">Contact Us</a></li>
+                <li><button class="lets-talk">Let's Talk</button></li> <!-- Moved inside nav for mobile view -->
+            </ul>
+        </nav>
+
+        <!-- Hamburger Menu for Mobile View -->
+        <div class="menu-toggle" id="menu-toggle">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </header>
+
+    <!-- Banner Section -->
+    <section class="banner">
+        <div class="banner-content">
+            <h1>Services</h1>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services">
+        <h2>What We Offer</h2>
+
+        <!-- Service 1 -->
+        <div class="serv1" id="service-1">
+            <div class="text-container">
+                <h1>Service 1</h1>
+                <p>Our first amazing service description. It brings value and solves problems for our clients.</p>
+            </div>
+            <img src="service1-image.jpg" alt="Service 1 Image">
+        </div>
+
+        <!-- Service 2 -->
+        <div class="serv2" id="service-2">
+            <div class="text-container">
+                <h1>Service 2</h1>
+                <p>Our second incredible service offering tailored to your needs for efficiency.</p>
+            </div>
+            <img src="service2-image.jpg" alt="Service 2 Image">
+        </div>
+
+        <!-- Service 3 -->
+        <div class="serv3" id="service-3">
+            <div class="text-container">
+                <h1>Service 3</h1>
+                <p>This service helps your business grow and optimize operations seamlessly.</p>
+            </div>
+            <img src="service3-image.jpg" alt="Service 3 Image">
+        </div>
+
+        <!-- Service 4 -->
+        <div class="serv4" id="service-4">
+            <div class="text-container">
+                <h1>Service 4</h1>
+                <p>Our premium service ensures your business thrives in a competitive market.</p>
+            </div>
+            <img src="service4-image.jpg" alt="Service 4 Image">
+        </div>
+    </section>
+
+    <!-- Banner2 Section -->
+    <div class="banner2">
+        <a href="#" class="btn">Discover More</a>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="logo.png" alt="Your Logo">
+                <p class="footer-description">We provide top-notch Salesforce services for your business growth.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-phone-alt"></i>+123 456 7890</p>
+                <p><i class="fas fa-envelope"></i>info@example.com</p>
+            </div>
+        </div>
+        <div class="footer-social">
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Your Company. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Service Animation
+        document.addEventListener('DOMContentLoaded', function () {
+            var service1 = document.getElementById('service-1');
+            var service2 = document.getElementById('service-2');
+            var service3 = document.getElementById('service-3');
+            var service4 = document.getElementById('service-4');
+            
+            setTimeout(function () {
+                service1.classList.add('active');
+            }, 500); // Delay for Service 1
+            setTimeout(function () {
+                service2.classList.add('active');
+            }, 1000); // Delay for Service 2
+            setTimeout(function () {
+                service3.classList.add('active');
+            }, 1500); // Delay for Service 3
+            setTimeout(function () {
+                service4.classList.add('active');
+            }, 2000); // Delay for Service 4
+        });
+
+        // Menu Toggle for Mobile
+       
+    </script>
+    <script>
+        // Toggle Menu for Mobile View
+        const menuToggle = document.getElementById('menu-toggle');
+        const navList = document.getElementById('nav-list');
+
+        menuToggle.addEventListener('click', () => {
+            navList.classList.toggle('open');
+        });
+    </script>
+</body>
+
+</html>
